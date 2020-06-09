@@ -7,39 +7,56 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="question_java.QuizController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="question_java.QuizController">
 	<children>
-		<Label contentDisplay="CENTER" layoutX="250.0" layoutY="39.0" prefHeight="50.0" prefWidth="200.0" text="SQL 기출 문제 " textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+		<Label contentDisplay="CENTER" layoutX="250.0" layoutY="39.0"
+			prefHeight="50.0" prefWidth="200.0" text="SQL 기출 문제 "
+			textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
 			<font>
 				<Font size="28.0" />
 			</font>
 		</Label>
-		<Pane layoutX="114.0" layoutY="109.0" prefHeight="330.0" prefWidth="500.0">
+		<Pane layoutX="114.0" layoutY="109.0" prefHeight="330.0"
+			prefWidth="500.0">
 			<children>
-            <Label fx:id="quiz" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="65.0" prefHeight="90.0" prefWidth="450.0" textAlignment="CENTER" />
-            <Pane layoutX="25.0" layoutY="178.0" prefHeight="116.0" prefWidth="450.0">
-               <children>
-                  <RadioButton layoutX="14.0" layoutY="1.0" mnemonicParsing="false">
-                     <graphic>
-                        <Label fx:id="select1" text="Label" />
-                     </graphic>
-                  </RadioButton>
-                  <RadioButton layoutX="14.0" layoutY="46.0" mnemonicParsing="false">
-                     <graphic>
-                        <Label fx:id="select2" text="Label" />
-                     </graphic>
-                  </RadioButton>
-                  <RadioButton layoutX="14.0" layoutY="92.0" mnemonicParsing="false">
-                     <graphic>
-                        <Label fx:id="select3" text="Label" />
-                     </graphic>
-                  </RadioButton>
-               </children>
-            </Pane>
-            <Label contentDisplay="CENTER" layoutX="235.0" layoutY="37.0" text="문제" />
+				<Label fx:id="quiz" alignment="CENTER" contentDisplay="CENTER"
+					layoutX="25.0" layoutY="65.0" prefHeight="90.0" prefWidth="450.0"
+					textAlignment="CENTER" />
+				<Pane layoutX="25.0" layoutY="178.0" prefHeight="116.0"
+					prefWidth="450.0">
+					<fx:define>
+						<ToggleGroup fx:id="group" />
+					</fx:define>
+					<children>
+						<RadioButton toggleGroup="$group" fx:id="rad1" layoutX="14.0" layoutY="1.0"
+							mnemonicParsing="false">
+							<graphic>
+								<Label fx:id="select1" text="Label" />
+							</graphic>
+						</RadioButton>
+						<RadioButton toggleGroup="$group" fx:id="rad2" layoutX="14.0" layoutY="46.0"
+							mnemonicParsing="false">
+							<graphic>
+								<Label fx:id="select2" text="Label" />
+							</graphic>
+						</RadioButton>
+						<RadioButton toggleGroup="$group" fx:id="rad3" layoutX="14.0" layoutY="92.0"
+							mnemonicParsing="false">
+							<graphic>
+								<Label fx:id="select3" text="Label" />
+							</graphic>
+						</RadioButton>
+					</children>
+				</Pane>
+				<Label contentDisplay="CENTER" layoutX="235.0" layoutY="37.0"
+					text="문제" />
 			</children>
 		</Pane>
-		<Button fx:id="btnOk" layoutX="273.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleBtnOkAction" text="확인" />
-		<Button layoutX="381.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleBtnCancelAction" text="취소" />
+		<Button fx:id="btnOk" layoutX="273.0" layoutY="456.0"
+			mnemonicParsing="false" onAction="#handleBtnOkAction" text="확인" />
+		<Button layoutX="381.0" layoutY="457.0" mnemonicParsing="false"
+			onAction="#handleBtnCancelAction" text="취소" />
 	</children>
 </AnchorPane>
