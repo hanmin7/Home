@@ -30,19 +30,19 @@
 						<ToggleGroup fx:id="group" />
 					</fx:define>
 					<children>
-						<RadioButton toggleGroup="$group" fx:id="rad1" layoutX="14.0" layoutY="1.0"
+						<RadioButton toggleGroup="$group" userData="rad1" fx:id="rad1" layoutX="14.0" layoutY="1.0"
 							mnemonicParsing="false">
 							<graphic>
 								<Label fx:id="select1" text="Label" />
 							</graphic>
 						</RadioButton>
-						<RadioButton toggleGroup="$group" fx:id="rad2" layoutX="14.0" layoutY="46.0"
+						<RadioButton toggleGroup="$group" userData="rad2" fx:id="rad2" layoutX="14.0" layoutY="46.0"
 							mnemonicParsing="false">
 							<graphic>
 								<Label fx:id="select2" text="Label" />
 							</graphic>
 						</RadioButton>
-						<RadioButton toggleGroup="$group" fx:id="rad3" layoutX="14.0" layoutY="92.0"
+						<RadioButton toggleGroup="$group" userData="rad3" fx:id="rad3" layoutX="14.0" layoutY="92.0"
 							mnemonicParsing="false">
 							<graphic>
 								<Label fx:id="select3" text="Label" />

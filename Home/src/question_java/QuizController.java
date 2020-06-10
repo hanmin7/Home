@@ -11,6 +11,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,6 +47,7 @@ public class QuizController implements Initializable {
 	ObservableList<Quiz> alist, blist;
 
 	int nextNum = 1;
+	int nextAnum=0;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -87,7 +91,6 @@ public class QuizController implements Initializable {
 //			System.out.println(intAry[i]);
 		
 		for (int i = 0; i < alist.size(); i++) {
-
 			blist.add(alist.get(intAry[i]));
 		}
 
@@ -99,8 +102,20 @@ public class QuizController implements Initializable {
 				handleBtnOkAction(event);
 			}
 		});
-
+		
+		
+		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldVal, Toggle newVal) {
+				System.out.println(newVal.getUserData());
+			}
+			
+		});
+		
+		
 	}
+	
+	
 
 	public ObservableList<Quiz> getQuizList() {
 		ObservableList<Quiz> list = FXCollections.observableArrayList();
@@ -116,8 +131,8 @@ public class QuizController implements Initializable {
 						rs.getInt("r3"), rs.getString("answer"), rs.getString("answerlist"));
 				list.add(board);
 			}
-			for(Quiz q : list)
-				System.out.println(q);
+//			for(Quiz q : list)
+//				System.out.println(q);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -139,7 +154,7 @@ public class QuizController implements Initializable {
 				if (num1 != num2) {
 					break;
 				}
-			}
+			} 
 		}
 		int num3 = random.nextInt(3);
 		if (num3 == num1 || num3 == num2) {
@@ -164,13 +179,30 @@ public class QuizController implements Initializable {
 
 		try {
 
-			Parent parent = FXMLLoader.load(getClass().getResource("Answer.fxml")); // scene 담아야함
+			Parent parent = FXMLLoader.load(getClass().getResource("Answer.fxml"));
 			Scene scene = new Scene(parent);
-
 			addStage.setScene(scene);
 			addStage.setResizable(false);
 			addStage.show();
 
+			
+			Label answerLabel = (Label) parent.lookup("#answerLabel");
+			//정답매칭 후 정답이다 오답이다뿌려주기
+			
+//			answerLabel.setText(value);
+			
+//			answerLabel.setText(blist.get(0).getAnswer());
+			Label answerList = (Label) parent.lookup("#answerList");
+//			answerList.setText(getAnsList().get(0).getAnswerlist());
+//			for(int i=0; i<blist.size(); i++) {
+//				System.out.println(blist.get(i).getAnswerlist());
+//				answerList.setText(blist.get(i).getAnswerlist());
+//			}
+			
+			answerList.setText(blist.get(nextAnum++).getAnswerlist());
+			
+			
+			
 			Button btnNext = (Button) parent.lookup("#btnNext");
 			btnNext.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
