@@ -23,7 +23,7 @@ public class Quiz {
 		this.select1 = new SimpleStringProperty(select1);
 		this.select2 = new SimpleStringProperty(select2);
 		this.select3 = new SimpleStringProperty(select3);
-		this.r1 = new SimpleIntegerProperty(r1);
+		this.r1 = new SimpleIntegerProperty(r1); 
 		this.r2 = new SimpleIntegerProperty(r2);
 		this.r3 = new SimpleIntegerProperty(r3);
 		this.answer = new SimpleStringProperty(answer);

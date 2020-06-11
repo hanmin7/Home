@@ -38,7 +38,7 @@ public class QuizController implements Initializable {
 	@FXML
 	Button btnOk, btnNext, btnClose;
 	@FXML
-	Label select1, select2, select3, quiz;
+	Label select1, select2, select3, quiz, scoreLabel;
 	@FXML
 	RadioButton rad1, rad2, rad3;
 	@FXML
@@ -47,7 +47,9 @@ public class QuizController implements Initializable {
 	ObservableList<Quiz> alist, blist;
 
 	int nextNum = 1;
-	int nextAnum=0;
+	int nextAnum = 0;
+	String match;
+	int score = 0;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -63,8 +65,7 @@ public class QuizController implements Initializable {
 //		for(Quiz q : alist)
 //		System.out.println(q);
 //		blist = getQuizList();
-		
-		
+
 		int[] intAry = new int[alist.size()];
 		int aryLength = intAry.length;
 
@@ -79,17 +80,16 @@ public class QuizController implements Initializable {
 						break;
 					}
 					j--;
-				}
+				} 
 			}
 			if (j != 0)
 				continue;
 			i++;
-		}//intAry 중복처리  인덱스값 랜덤
-		
-		
+		} // intAry 중복처리 인덱스값 랜덤
+
 //		for(int i=0; i<5; i++)
 //			System.out.println(intAry[i]);
-		
+
 		for (int i = 0; i < alist.size(); i++) {
 			blist.add(alist.get(intAry[i]));
 		}
@@ -102,20 +102,66 @@ public class QuizController implements Initializable {
 				handleBtnOkAction(event);
 			}
 		});
-		
-		
+
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldVal, Toggle newVal) {
-				System.out.println(newVal.getUserData());
+				if (newVal != null) {//newVal에 담는데 밑에서 deselect해서 널값으로 넘어옴. 그래서 토글누르면 값이널값이 아니게되니까 널값이 아닐 때
+					int test = 1;
+					if (newVal.getUserData().equals(select1.getUserData())) {
+//						System.out.println("1");
+						//내가 누른버튼의 getUserData랑 라벨1의 getUserData랑 묶고
+						//라벨1의 getText랑 blist에서 가져오는 보기1번이랑 비교. getSelect1이 답이 들어있으니 같으면 정답. 다르면 오답.
+						//그래서 라벨1이랑 묶여서 보기1,2,3비교하고 라벨2랑묶어서 보기1,2,3비교하고 라벨3이랑 묶어서 보기1,2,3 비교.
+						// 같은식으로 반복돌리는데 좀더코드를 줄이는 방법은??
+						if (select1.getText().equals(blist.get(nextAnum).getSelect1())) {
+//							System.out.println("정답");
+							match = "정답입니다";
+							score++;
+						} else if (select1.getText().equals(blist.get(nextAnum).getSelect2())) {
+//							System.out.println("오답");
+							match = "오답입니다";
+						} else if (select1.getText().equals(blist.get(nextAnum).getSelect3())) {
+//							System.out.println("오답");
+							match = "오답입니다";
+						}
+					} else if (newVal.getUserData().equals(select2.getUserData())) {
+//						System.out.println("2");
+						if (select2.getText().equals(blist.get(nextAnum).getSelect1())) {
+//							System.out.println("정답");
+							match = "정답입니다";
+							score++;
+						} else if (select2.getText().equals(blist.get(nextAnum).getSelect2())) {
+//							System.out.println("오답");
+							match = "오답입니다";
+						} else if (select2.getText().equals(blist.get(nextAnum).getSelect3())) {
+//							System.out.println("오답");
+							match = "오답입니다";
+						}
+					} else if (newVal.getUserData().equals(select3.getUserData())) {
+//						System.out.println("3");
+						if (select3.getText().equals(blist.get(nextAnum).getSelect1())) {
+//							System.out.println("정답");
+							match = "정답입니다";
+							score++;
+						} else if (select3.getText().equals(blist.get(nextAnum).getSelect2())) {
+//							System.out.println("오답");
+							match = "오답입니다";
+						} else if (select3.getText().equals(blist.get(nextAnum).getSelect3())) {
+//							System.out.println("오답");
+							match = "오답입니다";
+						}
+					}
+				}
 			}
-			
+
 		});
+
+		
+		scoreLabel.setText(Integer.toString(score));
 		
 		
-	}
-	
-	
+	} //initialize
 
 	public ObservableList<Quiz> getQuizList() {
 		ObservableList<Quiz> list = FXCollections.observableArrayList();
@@ -154,7 +200,7 @@ public class QuizController implements Initializable {
 				if (num1 != num2) {
 					break;
 				}
-			} 
+			}
 		}
 		int num3 = random.nextInt(3);
 		if (num3 == num1 || num3 == num2) {
@@ -169,9 +215,8 @@ public class QuizController implements Initializable {
 		select1.setText(quz[num1]);
 		select2.setText(quz[num2]);
 		select3.setText(quz[num3]);
-	} //getAnsList 문제에 대한 보기들 랜덤 뿌리기
+	} // getAnsList 문제에 대한 보기들 랜덤 뿌리기
 
-	
 	public void handleBtnOkAction(ActionEvent ae) {
 		Stage addStage = new Stage(StageStyle.UTILITY);
 		addStage.initModality(Modality.WINDOW_MODAL);
@@ -185,29 +230,29 @@ public class QuizController implements Initializable {
 			addStage.setResizable(false);
 			addStage.show();
 
-			
 			Label answerLabel = (Label) parent.lookup("#answerLabel");
-			//정답매칭 후 정답이다 오답이다뿌려주기
+			answerLabel.setText(match);
+			// 정답매칭 후 정답이다 오답이다뿌려주기
+
 			
-//			answerLabel.setText(value);
-			
-//			answerLabel.setText(blist.get(0).getAnswer());
 			Label answerList = (Label) parent.lookup("#answerList");
-//			answerList.setText(getAnsList().get(0).getAnswerlist());
-//			for(int i=0; i<blist.size(); i++) {
-//				System.out.println(blist.get(i).getAnswerlist());
-//				answerList.setText(blist.get(i).getAnswerlist());
-//			}
-			
 			answerList.setText(blist.get(nextAnum++).getAnswerlist());
-			
-			
-			
+
 			Button btnNext = (Button) parent.lookup("#btnNext");
 			btnNext.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					if (rad1.isSelected()) {
+						rad1.setSelected(false);
+					} else if (rad2.isSelected()) {
+						rad2.setSelected(false);
+					} else if (rad3.isSelected()) {
+						rad3.setSelected(false);
+					}
+					
 					addStage.close();
+					scoreLabel.setText(Integer.toString(score));
+					
 					try {
 						getAnsList(blist.get(nextNum++));
 					} catch (IndexOutOfBoundsException e) {
