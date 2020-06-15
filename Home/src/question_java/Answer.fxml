@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -24,10 +26,22 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="430.0" BorderPane.alignment="CENTER">
          <children>
-            <Label id="answerLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="430.0" textAlignment="CENTER">
+            <Label id="answerLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="430.0" textAlignment="CENTER"
+            		style="-fx-background-color: white; -fx-padding: 10;" >
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#ff0000ed" />
+                        <Stop color="#ff00a1" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
             </Label>
             <Label id="answerList" alignment="CENTER" contentDisplay="CENTER" prefHeight="150.0" prefWidth="430.0" textAlignment="CENTER">
                <padding>
